@@ -23,9 +23,9 @@ public class LoadTesterProperties {
     private int billShockRDSRequestIntervalInMillis;
     private int billShockEC2RequestIntervalInMillis;
     private int billShockS3DownloadRequestIntervalInMillis;
-    private int billShockDynamoDBGetRequestIntervalInMillis;
+    private int billShockDynamoDbGetRequestIntervalInMillis;
     private int billShockS3DeleteRequestIntervalInMillis;
-    private int billShockDynamoDBDeleteRequestIntervalInMillis;
+    private int billShockDynamoDbDeleteRequestIntervalInMillis;
 
     public String getTargetUrl() {
         return targetUrl;
@@ -91,12 +91,12 @@ public class LoadTesterProperties {
         this.billShockS3DownloadRequestIntervalInMillis = billShockS3DownloadRequestIntervalInMillis;
     }
 
-    public int getBillShockDynamoDBGetRequestIntervalInMillis() {
-        return billShockDynamoDBGetRequestIntervalInMillis;
+    public int getBillShockDynamoDbGetRequestIntervalInMillis() {
+        return billShockDynamoDbGetRequestIntervalInMillis;
     }
 
-    public void setBillShockDynamoDBGetRequestIntervalInMillis(int billShockDynamoDBGetRequestIntervalInMillis) {
-        this.billShockDynamoDBGetRequestIntervalInMillis = billShockDynamoDBGetRequestIntervalInMillis;
+    public void setBillShockDynamoDbGetRequestIntervalInMillis(int billShockDynamoDbGetRequestIntervalInMillis) {
+        this.billShockDynamoDbGetRequestIntervalInMillis = billShockDynamoDbGetRequestIntervalInMillis;
     }
 
     public int getBillShockS3DeleteRequestIntervalInMillis() {
@@ -107,11 +107,11 @@ public class LoadTesterProperties {
         this.billShockS3DeleteRequestIntervalInMillis = billShockS3DeleteRequestIntervalInMillis;
     }
 
-    public int getBillShockDynamoDBDeleteRequestIntervalInMillis() {
-        return billShockDynamoDBDeleteRequestIntervalInMillis;
+    public int getBillShockDynamoDbDeleteRequestIntervalInMillis() {
+        return billShockDynamoDbDeleteRequestIntervalInMillis;
     }
 
-    public void setBillShockDynamoDBDeleteRequestIntervalInMillis(int billShockDynamoDBDeleteRequestIntervalInMillis) {
-        this.billShockDynamoDBDeleteRequestIntervalInMillis = billShockDynamoDBDeleteRequestIntervalInMillis;
+    public void setBillShockDynamoDbDeleteRequestIntervalInMillis(int billShockDynamoDbDeleteRequestIntervalInMillis) {
+        this.billShockDynamoDbDeleteRequestIntervalInMillis = billShockDynamoDbDeleteRequestIntervalInMillis;
     }
 }

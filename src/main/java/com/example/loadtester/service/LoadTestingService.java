@@ -44,8 +44,8 @@ public class LoadTestingService {
         int s3DownloadReqInterval = properties.getBillShockS3DownloadRequestIntervalInMillis();
         int s3DeleteInterval = properties.getBillShockS3DeleteRequestIntervalInMillis();
         int dynReqInterval = properties.getBillShockDynamoDbRequestIntervalInMillis();
-        int dynGetReqInterval = properties.getBillShockDynamoDBGetRequestIntervalInMillis();
-        int dynDeleteInterval = properties.getBillShockDynamoDBDeleteRequestIntervalInMillis();
+        int dynGetReqInterval = properties.getBillShockDynamoDbGetRequestIntervalInMillis();
+        int dynDeleteInterval = properties.getBillShockDynamoDbDeleteRequestIntervalInMillis();
 //        int ec2ReqInterval = properties.getBillShockEC2RequestIntervalInMillis();
 //        int rdsReqInterval = properties.getBillShockRDSRequestIntervalInMillis();
 
@@ -70,6 +70,14 @@ public class LoadTestingService {
         if (billShockUrl != null && !billShockUrl.trim().isEmpty()) {
             log.info("Scheduling bill shock requests for {}", billShockUrl);
 
+            log.info("Req interval values : s3ReqInterval = {}", s3ReqInterval);
+            log.info("Req interval values : s3DownloadReqInterval = {}", s3DownloadReqInterval);
+            log.info("Req interval values : s3DeleteInterval = {}", s3DeleteInterval);
+            log.info("Req interval values : dynReqInterval = {}", dynReqInterval);
+            log.info("Req interval values : dynGetReqInterval = {}", dynGetReqInterval);
+            log.info("Req interval values : dynDeleteInterval = {}", dynDeleteInterval);
+
+
             if (s3ReqInterval > 0) {
                 String s3Body = configService.getRequestBody("s3");
                 scheduler.scheduleAtFixedRate(() -> performPostRequest(billShockUrl + "/s3", s3Body), 0, s3ReqInterval, TimeUnit.MILLISECONDS);
@@ -78,7 +86,7 @@ public class LoadTestingService {
 
             if (s3DownloadReqInterval > 0) {
                 String s3Body = configService.getRequestBody("s3Download");
-                scheduler.scheduleAtFixedRate(() -> performPostRequest(billShockUrl + "/s3-download", s3Body), 0, s3DownloadReqInterval, TimeUnit.MILLISECONDS);
+                scheduler.scheduleAtFixedRate(() -> performPostRequest(billShockUrl + "/s3-download", s3Body), 30000, s3DownloadReqInterval, TimeUnit.MILLISECONDS);
                 log.info("  - S3Download POST requests every {} ms", s3DownloadReqInterval);
             }
 
@@ -96,7 +104,7 @@ public class LoadTestingService {
 
             if (dynGetReqInterval > 0) {
                 String dynBody = configService.getRequestBody("dynamodbGet");
-                scheduler.scheduleAtFixedRate(() -> performPostRequest(billShockUrl + "/dynamodb-get-all-items", dynBody), 0, dynGetReqInterval, TimeUnit.MILLISECONDS);
+                scheduler.scheduleAtFixedRate(() -> performPostRequest(billShockUrl + "/dynamodb-get-all-items", dynBody), 30000, dynGetReqInterval, TimeUnit.MILLISECONDS);
                 log.info("  - DynamoDBGet POST requests every {} ms", dynGetReqInterval);
             }
 
@@ -170,7 +178,7 @@ public class LoadTestingService {
                             String responseBody = responseEntity.getBody();
                             long bodySize = responseBody != null ? responseBody.length() : 0;
                             metricService.incrementBytes(bodySize);
-                            log.debug("POST Request successful to {}. Status: {}", url, responseEntity.getStatusCode());
+                            log.info("POST Request successful to {}. Status: {}. Body: {}", url, responseEntity.getStatusCode(), responseBody);
                         },
                         error -> {
                             metricService.incrementRequests();
